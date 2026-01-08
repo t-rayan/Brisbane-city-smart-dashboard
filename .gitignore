@@ -176,3 +176,10 @@ next-env.d.ts
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 >>>>>>> df6ec4d14b2fc8f32a77612587ee29c0a645bc7d
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
