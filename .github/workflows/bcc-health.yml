@@ -28,10 +28,15 @@ jobs:
 
       - name: Debug - Check BCC API access
         run: |
-          curl -H "Authorization: Apikey ${{ secrets.BCC_API_KEY }}" \
-          "https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/brisbane-parking-stations/records?limit=1"
-        env:
-          BCC_API_KEY: ${{ secrets.BCC_API_KEY }}
+          echo "Testing Parking API..."
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Apikey ${{ secrets.BCC_API_KEY }}" \
+            "https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/brisbane-parking-stations/records?limit=1"
+          
+          echo "Testing Events API..."
+          curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Apikey ${{ secrets.BCC_API_KEY }}" \
+            "https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/brisbane-city-council-events/records?limit=1"
 
       - name: Run health checks
         run: npx playwright test
