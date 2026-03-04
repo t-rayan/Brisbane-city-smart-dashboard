@@ -2,7 +2,7 @@ name: BNE Pulse - BCC API Health Check
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 jobs:
@@ -15,16 +15,23 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
 
       - name: Build Next.js app
         run: npm run build
+
+      - name: Debug - Check BCC API access
+        run: |
+          curl -H "Authorization: Apikey ${{ secrets.BCC_API_KEY }}" \
+          "https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/brisbane-parking-stations/records?limit=1"
+        env:
+          BCC_API_KEY: ${{ secrets.BCC_API_KEY }}
 
       - name: Run health checks
         run: npx playwright test
