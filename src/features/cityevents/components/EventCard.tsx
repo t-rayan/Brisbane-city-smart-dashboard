@@ -137,6 +137,7 @@ export function EventsCard({ evt }: EventsCardProps) {
         <div className="overflow-y-auto p-2 space-y-2 custom-scrollbar flex-1">
             <div
                 key={evt.id}
+                data-testid="event-card"
                 onClick={() => window.open(evt.link, '_blank')}
                 className="flex items-center gap-3 p-3 rounded-xl border border-transparent bg-background hover:border-brand/30 hover:bg-brand/5 transition-all group cursor-pointer relative"
             >

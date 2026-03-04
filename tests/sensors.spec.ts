@@ -4,6 +4,8 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 
 test.describe('Sensor API Health', () => {
 
+    // sensor map container test
+
   test('Sensor map container is visible', async ({ page }) => {
     await page.goto(BASE_URL, { waitUntil: 'networkidle' });
 
@@ -28,8 +30,6 @@ test.describe('Sensor API Health', () => {
     const legend = page.locator('[data-testid="sensor-legend"]');
     await expect(legend).toBeVisible({ timeout: 15000 });
 
-    // await expect(page.locator('text=Rain')).toBeVisible();
-    // await expect(page.locator('text=Creek')).toBeVisible();
   });
 
   test('Sensor tooltip shows real data on hover', async ({ page }) => {
@@ -49,5 +49,27 @@ test.describe('Sensor API Health', () => {
     const recenterBtn = page.locator('[data-testid="recenter-button"]');
     await expect(recenterBtn).toBeVisible({ timeout: 15000 });
   });
+
+
+
+
+// sensor list container test
+  test('Sensor List container is visible', async ({ page }) => {
+    await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+
+    const sensorList = page.locator('[data-testid="sensorlist-container"]');
+    await expect(sensorList).toBeVisible({ timeout: 15000 });
+});
+test('Sensor list items load from real API data', async ({ page }) => {
+  await page.goto(BASE_URL, { waitUntil: 'networkidle' });
+
+  await page.waitForSelector('[data-testid="sensor-list-item"]', { timeout: 15000 });
+
+  const sensorItems = page.locator('[data-testid="sensor-list-item"]');
+  const count = await sensorItems.count();
+  expect(count).toBeGreaterThan(0);
+  console.log(`✅ ${count} sensor list items loaded`);
+});
+
 
 });

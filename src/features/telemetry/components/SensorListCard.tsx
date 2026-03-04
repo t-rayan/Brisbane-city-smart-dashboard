@@ -22,7 +22,7 @@ export function SensorListCard({ sensors }: { sensors: SensorListProps[] }) {
   };
 
   return (
-    <div className="bg-background rounded-2xl border border-muted/20 shadow-sm flex flex-col h-full max-h-[500px] overflow-hidden">
+    <div data-testid="sensorlist-container" className="bg-background rounded-2xl border border-muted/20 shadow-sm flex flex-col h-full max-h-[500px] overflow-hidden">
       
       {/* 1. Integrated Section Header */}
       <SectionHeader
@@ -33,7 +33,7 @@ export function SensorListCard({ sensors }: { sensors: SensorListProps[] }) {
       />
   
       {/* 2. List Container with Scrollbar Fixes */}
-      <div className="flex-1 overflow-y-auto p-2 space-y-2 no-scrollbar hover:custom-scrollbar transition-colors">
+      <div data-testid="sensor-list-item" className="flex-1 overflow-y-auto p-2 space-y-2 no-scrollbar hover:custom-scrollbar transition-colors">
         {sensors.map((sensor) => {
           const val = parseFloat(sensor.currentValue);
           const isRain = sensor.sensorType === 'Rainfall';

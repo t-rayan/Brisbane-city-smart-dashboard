@@ -1,10 +1,10 @@
-export interface TelemetryApiResponse {
+export interface BccApiResponse {
     total_count: number,
-    results: TelemetryMetadataResponse []
+    results: BccTelemetryMetadata []
     
 }
 
-export interface TelemetryMetadataResponse {
+export interface BccTelemetryMetadata {
     sensor_id: string,
     location_id: string,
     location_name: string,
@@ -23,8 +23,6 @@ export interface TelemetryMetadata {
     locationName: string,
     sensorType: string,
     unitOfMeasurement: string,
-    latitude: number,
-    longitude: number,
     geopoint: {
         lon: string,
         lat:string

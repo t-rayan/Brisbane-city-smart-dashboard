@@ -1,8 +1,8 @@
 // import 'server-only';
-import {ParkingResponse, ParkingSpot} from '@/types/parking';
+import { ParkingResponse, ParkingSpot } from '@/types/parking';
 
 export async function getParkingInfo(): Promise<ParkingSpot[]> {
-    
+
     const API_KEY = process.env.BCC_API_KEY
 
     const fetchOptions = {
@@ -11,13 +11,11 @@ export async function getParkingInfo(): Promise<ParkingSpot[]> {
             'Content-Type': 'application/json'
         }
     };
-
     const url = "https://data.brisbane.qld.gov.au/api/explore/v2.1/catalog/datasets/brisbane-parking-stations/records?limit=20";
-
     try {
         const res = await fetch(url, {
-            ...fetchOptions, 
-            next: {revalidate: 3600}
+            ...fetchOptions,
+            next: { revalidate: 3600 }
         }
         );
         if (!res.ok) {
@@ -25,11 +23,11 @@ export async function getParkingInfo(): Promise<ParkingSpot[]> {
             console.error("Parking API Error Details:", errorData);
             throw new Error(`Failed to fetch parking info: ${res.status}`);
         }
-        
+
         const data: ParkingResponse = await res.json();
         const latest = data.results[0];
         // console.log(latest)
-    
+
         return [
             {
                 name: "King George Square Parking",
@@ -49,5 +47,5 @@ export async function getParkingInfo(): Promise<ParkingSpot[]> {
         return [];
     }
 
-   
+
 }
