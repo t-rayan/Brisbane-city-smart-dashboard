@@ -2,8 +2,8 @@ name: BNE Pulse - BCC API Health Check
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # runs every 6 hours
-  workflow_dispatch:        # manual trigger from GitHub UI
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   health-check:
@@ -26,11 +26,8 @@ jobs:
       - name: Build Next.js app
         run: npm run build
 
-      - name: Start app and run health checks
-        run: |
-          npm run start &
-          sleep 10
-          npx playwright test
+      - name: Run health checks
+        run: npx playwright test
         env:
           BASE_URL: http://localhost:3000
           BCC_API_KEY: ${{ secrets.BCC_API_KEY }}
