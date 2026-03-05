@@ -25,6 +25,8 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
+        env:
+          BCC_API_KEY: ${{ secrets.BCC_API_KEY }}
 
       - name: Debug - Check BCC API access
         run: |
