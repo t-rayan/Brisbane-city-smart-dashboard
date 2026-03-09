@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Brisbane Live Dashboard",
-  description: "BNE Pulse - Smart City Insights",
+  title: "BNE Pulse",
+  description: "Real-time Brisbane city dashboard — live parking, sensors and events powered by Brisbane City Council open data.",
 };
 
 export default function RootLayout({

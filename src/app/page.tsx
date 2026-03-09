@@ -57,6 +57,18 @@ export default async function Page() {
 
         </div>
       </main>
+      {/* Footer */}
+      <footer className="mt-8 pb-4 text-center text-xs text-muted">
+        Data provided by{" "}
+
+        <a href="https://data.brisbane.qld.gov.au"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline hover:text-brand transition-colors"
+        >
+          Brisbane City Council Open Data Portal
+        </a>
+      </footer>
     </div>
   );
 
