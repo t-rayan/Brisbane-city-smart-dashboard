@@ -1,70 +1,141 @@
-# 🇦🇺 Brisbane Smart-City Dashboard
-**An AI-Powered Civic Intelligence Platform**
+# BNE Pulse 🌆
 
-Built for the 2026 Brisbane Tech Market to demonstrate Engineering Excellence, Automated QA, and Agile Methodology.
+![BCC API Health Check](https://github.com/t-rayan/Brisbane-city-smart-dashboard/actions/workflows/bcc-health.yml/badge.svg)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
 
----
+A real-time Brisbane city dashboard consuming live Brisbane City Council (BCC) open data APIs. Built to surface live parking availability, environmental sensor telemetry, and upcoming city events in a clean, unified interface.
 
-## 💡 Project Overview
-The **Brisbane Smart-City Dashboard** is a full-stack application designed to solve a local problem: the fragmentation of municipal data. It consolidates Brisbane City Council (BCC) Open Data into a single, high-performance interface.
-
-### Key Value Propositions:
-* **Live Infrastructure Tracking:** Real-time parking and telemetry data from BCC sensors.
-* **AI Civic Assistant:** Generative AI summaries of complex Council Meeting Minutes.
-* **Enterprise Reliability:** Automated "Health Checks" using Playwright to monitor external API stability.
+🔗 **Live:** [brisbane-city-smart-dashboard.vercel.app](https://brisbane-city-smart-dashboard.vercel.app)
 
 ---
 
-## 🏗️ Technical Stack
+## Features
+
+- **Live Parking** — Real-time CBD parking occupancy for King George Square and Wickham Terrace, with availability status and capacity progress bars
+- **Sensor Network** — Interactive map of Brisbane's IoT environmental sensors (rainfall and creek levels), with live telemetry readings and hover tooltips
+- **City Events** — Upcoming Brisbane City Council events with category filtering, venue details, and direct links
+- **Live Feed** — Scrollable telemetry feed showing real-time sensor readings across Brisbane suburbs
+- **Dark Mode** — Full light/dark theme support
+- **Auto Refresh** — Data syncs automatically every 60 seconds
+
+---
+
+## Tech Stack
+
 | Layer | Technology |
-| :--- | :--- |
-| **Frontend** | React 19 / Next.js (App Router) |
-| **Styling** | Tailwind CSS (Brisbane Brand Palette) |
-| **Backend** | Node.js / Next.js API Routes |
-| **Automation/QA** | **Playwright** (End-to-End Testing) |
-| **AI Integration** | OpenAI / Gemini API (RAG Implementation) |
-| **Data Source** | Brisbane City Council Open Data Portal (Opendatasoft API) |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Maps | Pigeon Maps + OpenStreetMap |
+| Icons | Lucide React |
+| Testing | Playwright |
+| CI/CD | GitHub Actions |
+| Deployment | Vercel |
+| Data | Brisbane City Council Open Data API |
 
 ---
 
-## 🔄 Methodology: Solo-Scrum
-This project was managed using **Agile/Scrum** methodologies to simulate a professional engineering environment.
+## Architecture
 
-* **Sprint Cadence:** 1-Week Sprints.
-* **Task Management:** Managed via [GitHub Projects].
-* **Definition of Done (DoD):** Feature must be responsive, pass all Playwright E2E tests, and be documented in the `/docs` folder.
-
-### Sprint Breakdown:
-* **Sprint 1 (MVP):** Map integration & Real-time Parking feeds.
-* **Sprint 2 (Reliability):** Playwright E2E test suite & CI/CD pipeline setup.
-* **Sprint 3 (AI):** Natural Language Processing of BCC meeting records.
-* **Sprint 4 (UX/Polish):** Performance optimization and final deployment.
-
----
-
-## 🧪 Quality Assurance (The Playwright Layer)
-Because this app relies on external Government APIs, I implemented a robust testing strategy:
-
-1.  **API Smoke Tests:** Automated daily checks to ensure BCC endpoints haven't changed their schema.
-2.  **UI Verification:** Playwright scripts verify that Map markers and AI summaries render correctly on both Mobile and Desktop views.
-3.  **Continuous Integration:** GitHub Actions run the test suite on every pull request to ensure zero regressions.
-
----
-
-## 🚀 How to Run Locally
-1. Clone the repo: `git clone [your-repo-link]`
-2. Install dependencies: `npm install`
-3. Set up `.env`: Add your `OPENAI_API_KEY`
-4. Run Playwright Tests: `npx playwright test`
-5. Start Development: `npm run dev`
+```
+app/
+├── page.tsx                          # Server component — fetches all BCC data
+features/
+├── parking/
+│   ├── services/get-parkinginfo.ts   # BCC parking API
+│   ├── ParkingCardList.tsx
+│   └── ParkingCard.tsx
+├── telemetry/
+│   ├── services/get-metadatainfo.ts  # BCC telemetry API
+│   ├── components/SensorMap.tsx      # Pigeon Maps interactive map
+│   └── components/SensorListCard.tsx
+├── cityevents/
+│   ├── services/get-eventsinfo.ts    # BCC events API
+│   └── EventList.tsx
+tests/
+├── smoke.spec.ts                     # App loads successfully
+├── parking.spec.ts                   # Parking data health checks
+├── sensors.spec.ts                   # Sensor data health checks
+└── events.spec.ts                    # Events data health checks
+.github/workflows/
+└── bcc-health.yml                    # Scheduled API health checks every 6 hours
+```
 
 ---
 
-## 📈 Future Roadmap
-- [ ] Integration with Translink real-time GTFS feeds for Brisbane Ferries.
-- [ ] Community "Incident Reporting" feature using Firebase.
-- [ ] PWA (Progressive Web App) support for offline access to flood data.
+## Getting Started
+
+### Prerequisites
+- Node.js 20+
+- BCC Open Data API key — get one free at [data.brisbane.qld.gov.au](https://data.brisbane.qld.gov.au)
+
+### Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/t-rayan/Brisbane-city-smart-dashboard.git
+cd Brisbane-city-smart-dashboard
+
+# Install dependencies
+npm install
+
+# Add your API key
+echo "BCC_API_KEY=your_api_key_here" > .env.local
+
+# Start development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
 
 ---
 
-**Developed by [Your Name]** *Currently seeking Entry-Level Software Engineering opportunities in Brisbane, Australia.*
+## Testing
+
+This project uses **Playwright** for end-to-end health checks that verify live BCC API data is rendering correctly.
+
+```bash
+# Run all tests
+npx playwright test
+
+# Run specific feature tests
+npx playwright test tests/parking.spec.ts
+npx playwright test tests/sensors.spec.ts
+npx playwright test tests/events.spec.ts
+
+# Run with browser visible
+npx playwright test --headed
+```
+
+### Automated Health Checks
+
+GitHub Actions runs the full Playwright test suite every 6 hours to verify all BCC APIs are returning live data. If any check fails, a report is automatically uploaded as a GitHub artifact.
+
+---
+
+## Data Sources
+
+All data is sourced from the [Brisbane City Council Open Data Portal](https://data.brisbane.qld.gov.au):
+
+| Dataset | Refresh Rate |
+|---|---|
+| Brisbane Parking Stations | Every 60 min |
+| Environmental Sensor Telemetry | Live |
+| Brisbane City Council Events | Every 5 min |
+
+---
+
+## Author
+
+**Narayan Thapa**
+- GitHub: [@t-rayan](https://github.com/t-rayan)
+- LinkedIn: [your-linkedin-url]
+
+---
+
+## License
+
+MIT
