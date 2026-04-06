@@ -132,7 +132,7 @@ All data is sourced from the [Brisbane City Council Open Data Portal](https://da
 
 **Narayan Thapa**
 - GitHub: [@t-rayan](https://github.com/t-rayan)
-- LinkedIn: [your-linkedin-url]
+- LinkedIn: https://www.linkedin.com/in/narayan-thapa-7154a411b/
 
 ---
 
