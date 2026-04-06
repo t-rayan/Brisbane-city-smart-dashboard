@@ -38,6 +38,16 @@ A real-time Brisbane city dashboard consuming live Brisbane City Council (BCC) o
 
 ---
 
+## Screenshots
+
+![Dashboard](./screenshots/dashboard.png)
+![Events](./screenshots/events_list.png)
+![Map](./screenshots/sensor_map.png)
+![Parking](./screenshots/parking_list.png)
+![Sensors](./screenshots/sensor_list.png)
+
+
+
 ## Architecture
 
 ```
